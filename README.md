@@ -142,10 +142,18 @@ extensions:
 - If you bind to `0.0.0.0`, set `YEIVILY_API_KEY`.
 - Scraping search engines can conflict with their terms of service. Intended for personal/local development use.
 
-## Tests
+## Tests & Benchmark
+
+### Unit Tests (Offline)
 
 ```bash
 python -m unittest discover -v     # 22 tests; no network and no ddgs required
+```
+
+### Concurrency & Saturation Benchmark
+
+```bash
+python benchmark.py                # 20 concurrent queries (single-flight dedupe + queue)
 ```
 
 ## License & Disclaimer
