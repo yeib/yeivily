@@ -239,6 +239,51 @@ class ServerTests(unittest.TestCase):
         finally:
             FakeDDGS._results = original
 
+    def test_search_context_endpoint(self):
+        status, data, _ = self.req("POST", "/search/context", {"query": "test query", "max_results": 2})
+        self.assertEqual(status, 200)
+        self.assertIn("context", data)
+        self.assertIn("query", data)
+        self.assertIn("Title 0", data["context"])
+        self.assertIn("Title 1", data["context"])
+
+        # Missing query returns 400
+        err_status, err_data, _ = self.req("POST", "/search/context", {"max_results": 2})
+        self.assertEqual(err_status, 400)
+        self.assertIn("error", err_data["detail"])
+
+    def test_health_and_root_endpoints(self):
+        for path in ("/health", "/"):
+            status, data, _ = self.req("GET", path)
+            self.assertEqual(status, 200)
+            self.assertEqual(data.get("status"), "ok")
+            self.assertEqual(data.get("version"), yeivily.__version__)
+            self.assertIn("cache_entries", data)
+
+    def test_query_length_boundary_validation(self):
+        # Over 400 characters -> 400 Bad Request
+        status, data, _ = self.req("POST", "/search", {"query": "a" * 401})
+        self.assertEqual(status, 400)
+        self.assertIn("too long", data["detail"]["error"].lower())
+
+        # Exactly 400 characters -> 200 OK
+        status, data, _ = self.req("POST", "/search", {"query": "a" * 400})
+        self.assertEqual(status, 200)
+
+    def test_max_results_clamping_and_fake_answer(self):
+        # Clamping to max 20
+        _, data_high, _ = self.req("POST", "/search", {"query": "test", "max_results": 99})
+        self.assertLessEqual(len(data_high["results"]), 20)
+
+        # Fake answer opt-in (requires both FAKE_ANSWER flag and include_answer parameter)
+        yeivily.FAKE_ANSWER = True
+        try:
+            _, data_answer, _ = self.req("POST", "/search", {"query": "test answer", "include_answer": True})
+            self.assertIsNotNone(data_answer["answer"])
+            self.assertIn("Snippet", data_answer["answer"])
+        finally:
+            yeivily.FAKE_ANSWER = False
+
 
 class McpTests(unittest.TestCase):
     def test_protocol_roundtrip_with_in_process_fallback(self):
@@ -262,6 +307,7 @@ class McpTests(unittest.TestCase):
                 {"jsonrpc": "2.0", "id": 5, "method": "tools/call", "params": {"name": "nope"}},
                 {"jsonrpc": "2.0", "id": 6, "method": "tools/call", "params": {"name": "web_search", "arguments": {}}},
                 {"jsonrpc": "2.0", "id": 7, "method": "resources/list"},
+                {"jsonrpc": "2.0", "id": 8, "method": "tools/call", "params": {"name": "fetch_page", "arguments": {}}},
             ]
             payload = b"\xef\xbb\xbf" + "\n".join(json.dumps(m) for m in msgs).encode() + b"\n[1]\nnot json\n"
             out, _ = proc.communicate(payload, timeout=30)
@@ -278,6 +324,7 @@ class McpTests(unittest.TestCase):
         self.assertEqual(replies[5]["error"]["code"], -32602)
         self.assertTrue(replies[6]["result"]["isError"])
         self.assertEqual(replies[7]["error"]["code"], -32601)
+        self.assertTrue(replies[8]["result"]["isError"])  # missing url parameter
         self.assertEqual(replies[None]["error"]["code"], -32600)  # the "[1]" line (first null-id reply)
 
 

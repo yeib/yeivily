@@ -145,7 +145,7 @@ extensions:
 ## Tests
 
 ```bash
-python -m unittest discover -v     # 18 tests; no network and no ddgs required
+python -m unittest discover -v     # 22 tests; no network and no ddgs required
 ```
 
 ## License & Disclaimer
