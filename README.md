@@ -5,6 +5,7 @@
 <h1 align="center">Yeivily</h1>
 
 <p align="center">
+  <a href="https://pypi.org/project/yeivily/"><img src="https://img.shields.io/pypi/v/yeivily.svg" alt="PyPI version"></a>
   <a href="https://github.com/yeib/yeivily/actions/workflows/ci.yml"><img src="https://github.com/yeib/yeivily/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
@@ -30,13 +31,14 @@ No Docker, no SearXNG, no API key, no database.
 
 ## Quick start
 
-### Install with `pipx` or `pip` (no clone needed)
+### Install with `pipx` or `pip`
 
 ```bash
-pipx install git+https://github.com/yeib/yeivily.git
-# or: pip install git+https://github.com/yeib/yeivily.git
+pipx install yeivily
+# or: pip install yeivily
 
 yeivily                               # starts HTTP server on http://127.0.0.1:8000
+yeivily-mcp                           # runs stdio MCP server directly
 ```
 
 ### Or run directly from source
