@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1280px;
+      height: 640px;
+      overflow: hidden;
+      background-color: #070a13;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      color: #f8fafc;
+      position: relative;
+    }
+
+    /* Ambient glow elements */
+    .glow-cyan {
+      position: absolute;
+      top: -100px;
+      left: 100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .glow-indigo {
+      position: absolute;
+      bottom: -150px;
+      right: 100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* Subtle grid pattern */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Main Container */
+    .card-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Top Row: Brand & Creator */
+    .top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .brand-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+    .ecosystem-badge {
+      font-size: 0.95rem;
+      color: #64748b;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Center Hero */
+    .center-hero {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      margin: auto 0;
+    }
+    .logo-frame {
+      width: 170px;
+      height: 170px;
+      flex-shrink: 0;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(99, 102, 241, 0.05) 70%, transparent 100%);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+    }
+    .logo-frame img {
+      width: 140px;
+      height: 140px;
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+    .title-group {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 80%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .version-pill {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 12px;
+      border-radius: 8px;
+    }
+    .tagline {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .sub-tagline {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    /* Badges Row */
+    .badges-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 8px 18px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .pill.highlight {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #38bdf8;
+    }
+    .pill.green-accent {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+
+    /* Bottom Bar */
+    .bottom-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+    .compatible-tags {
+      display: flex;
+      gap: 20px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .compatible-tags span { display: inline-flex; align-items: center; gap: 6px; }
+  </style>
+</head>
+<body>
+
+  <div class="glow-cyan"></div>
+  <div class="glow-indigo"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="card-content">
+    <!-- Top Bar -->
+    <div class="top-row">
+      <div class="brand-group">
+        <div class="brand-badge">
+          <span class="badge-dot"></span>
+          <span>Open Source &bull; MIT</span>
+        </div>
+        <div class="brand-badge">
+          <span>By <strong>Yeib</strong></span>
+        </div>
+      </div>
+      <div class="ecosystem-badge">
+        Local LLM Agent Infrastructure
+      </div>
+    </div>
+
+    <!-- Center Hero Content -->
+    <div class="center-hero">
+      <div class="logo-frame">
+        <img src="logos/yeivily-logo.svg" alt="Yeivily">
+      </div>
+      <div class="hero-text">
+        <div class="title-group">
+          <h1>yeivily</h1>
+          <span class="version-pill">v1.0.0</span>
+        </div>
+        <div class="tagline">
+          Tiny Tavily-Compatible Search Server & MCP Provider
+        </div>
+        <div class="sub-tagline">
+          Local web search backed by DuckDuckGo &bull; Zero Docker &bull; Zero API Keys
+        </div>
+
+        <div class="badges-row">
+          <div class="pill highlight">⚡ ~44 MB RAM</div>
+          <div class="pill">🐳 Zero Docker</div>
+          <div class="pill green-accent">🤖 MCP Stdio + HTTP</div>
+          <div class="pill">🛡️ TTL Cache & Dedupe</div>
+          <div class="pill">🦆 DuckDuckGo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+      <div>github.com/yeib/yeivily</div>
+      <div class="compatible-tags">
+        <span>🦆 Goose CLI</span>
+        <span>🦙 Ollama</span>
+        <span>⚡ Aider</span>
+        <span>✨ Claude Desktop</span>
+        <span>💻 Cursor</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
