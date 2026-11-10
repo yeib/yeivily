@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yeivily Official Brand Assets</title>
+  <link rel="icon" type="image/png" href="logos/yeivily-favicon-32.png">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: #111827;
+      --border: #1f293d;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --cyan: #38bdf8;
+      --indigo: #6366f1;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      padding: 40px 20px;
+      line-height: 1.5;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 40px; }
+    header h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+    header h1 span {
+      background: linear-gradient(135deg, var(--cyan), var(--indigo));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    header p { color: var(--text-muted); margin-top: 8px; font-size: 1.05rem; }
+
+    .showcase-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+    .main-logo-box {
+      width: 180px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+    }
+    .tagline {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 8px;
+    }
+    .subtag {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .assets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      width: 100%;
+      border-top: 1px solid var(--border);
+      padding-top: 30px;
+    }
+    .asset-item {
+      background: #0d1322;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .asset-item h4 { font-size: 0.9rem; margin-bottom: 8px; color: var(--cyan); }
+    .asset-item p { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+    .asset-item img { margin: 0 auto; display: block; }
+
+    /* Web snippet */
+    .snippet-section {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+    }
+    .snippet-section h3 { font-size: 1.15rem; margin-bottom: 12px; }
+    pre {
+      background: #020617;
+      border: 1px solid #1e293b;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #93c5fd;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Isotipo Oficial: <span>Yeivily (Yeib)</span></h1>
+      <p>Fusión geométrica de la "Y" de Yeib con el pato de DuckDuckGo.</p>
+    </header>
+
+    <div class="showcase-card">
+      <div class="main-logo-box">
+        <img src="logos/yeivily-logo.svg" width="160" height="160" alt="Yeivily Logo">
+      </div>
+      <div class="tagline">yeivily</div>
+      <div class="subtag">
+        El brazo izquierdo forma el ala/cola, el poste vertical forma el tronco sólido de la <strong>Y</strong>, y el brazo derecho remata en la cabeza del pato con su pico ámbar.
+      </div>
+
+      <div class="assets-grid">
+        <div class="asset-item">
+          <h4>Avatar (500x500)</h4>
+          <p>Para GitHub & Glama</p>
+          <img src="logos/yeivily-avatar-500.png" width="64" height="64">
+        </div>
+        <div class="asset-item">
+          <h4>Favicon (180x180)</h4>
+          <p>Apple Touch Icon</p>
+          <img src="logos/yeivily-favicon-180.png" width="48" height="48">
+        </div>
+        <div class="asset-item">
+          <h4>Favicon (32x32)</h4>
+          <p>Pestaña de Navegador</p>
+          <img src="logos/yeivily-favicon-32.png" width="32" height="32" style="margin-top:8px;">
+        </div>
+        <div class="asset-item">
+          <h4>Vector Puro (SVG)</h4>
+          <p>Carga en 0.01s en tu web</p>
+          <img src="logos/yeivily-icon.svg" width="40" height="40">
+        </div>
+      </div>
+    </div>
+
+    <div class="snippet-section">
+      <h3>Snippet listo para insertar en el &lt;head&gt; de tu sitio web:</h3>
+      <pre>&lt;!-- Yeivily Favicon & Icons --&gt;
+&lt;link rel="icon" type="image/svg+xml" href="/assets/logos/yeivily-icon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/assets/logos/yeivily-favicon-32.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/assets/logos/yeivily-favicon-180.png"&gt;</pre>
+    </div>
+
+  </div>
+
+</body>
+</html>

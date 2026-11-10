@@ -1,8 +1,15 @@
-# Yeivily
+<p align="center">
+  <img src="assets/logos/yeivily-logo.svg" width="130" height="130" alt="Yeivily logo">
+</p>
 
-[![CI](https://github.com/yeib/yeivily/actions/workflows/ci.yml/badge.svg)](https://github.com/yeib/yeivily/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+<h1 align="center">Yeivily</h1>
+
+<p align="center">
+  <a href="https://github.com/yeib/yeivily/actions/workflows/ci.yml"><img src="https://github.com/yeib/yeivily/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
+  <a href="https://glama.ai/mcp/servers/yeib/yeivily"><img src="https://img.shields.io/badge/Glama-Listed-purple.svg" alt="Glama Listed"></a>
+</p>
 
 A tiny, keyless, Tavily-style search server and MCP provider for local LLM setups (Ollama, Goose, Aider, LangChain, ...).
 Search comes from DuckDuckGo through [`ddgs`](https://pypi.org/project/ddgs/); everything else is Python standard library.
