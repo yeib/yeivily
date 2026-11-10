@@ -124,6 +124,7 @@ extensions:
 | `YEIVILY_SAFESEARCH` | `moderate` | `on`, `moderate`, `off` |
 | `YEIVILY_CACHE_TTL` / `YEIVILY_CACHE_MAX` | `600` / `256` | Cache seconds / entries |
 | `YEIVILY_DEEP_TOP_N` | `3` | Results enriched with page text when `include_raw_content` or `search_depth=advanced` |
+| `YEIVILY_PROXY` | unset | HTTP or SOCKS5 proxy URL (`--proxy`, e.g. `socks5://127.0.0.1:9050`) |
 | `YEIVILY_ALLOW_PRIVATE_FETCH` | off | Let `/extract` reach LAN/localhost addresses |
 | `YEIVILY_FAKE_ANSWER` | off | Fill `answer` with concatenated snippets (not an LLM answer) |
 | `YEIVILY_URL` (MCP) | `http://127.0.0.1:8000` | Where the MCP server finds the daemon |

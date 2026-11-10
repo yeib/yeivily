@@ -24,6 +24,7 @@ Environment variables (all optional):
     YEIVILY_CACHE_TTL                 seconds (default 600)
     YEIVILY_CACHE_MAX                 entries (default 256)
     YEIVILY_DEEP_TOP_N                results enriched with page text (default 3)
+    YEIVILY_PROXY                     HTTP or SOCKS5 proxy URL (e.g. socks5://127.0.0.1:9050)
     YEIVILY_ALLOW_PRIVATE_FETCH=1     let page extraction reach private/LAN addresses
     YEIVILY_ALLOWED_HOSTS             extra Host header values accepted (comma list)
     YEIVILY_FAKE_ANSWER=1             fill "answer" with concatenated snippets (opt-in)
@@ -100,6 +101,7 @@ UPSTREAM_CONCURRENCY = 2       # simultaneous queries sent to DuckDuckGo
 RATELIMIT_COOLDOWN = 15.0      # seconds of fail-fast after an upstream rate-limit
 ALLOW_PRIVATE_FETCH = _env_flag("YEIVILY_ALLOW_PRIVATE_FETCH")
 FAKE_ANSWER = _env_flag("YEIVILY_FAKE_ANSWER")
+PROXY = os.environ.get("YEIVILY_PROXY") or None
 
 _LOCAL_HOSTS = {"localhost", "127.0.0.1", "::1", "0.0.0.0"} | {
     h.strip().lower()
@@ -378,6 +380,8 @@ def _make_ssl_context() -> ssl.SSLContext | None:
 
 def _build_opener() -> urllib.request.OpenerDirector:
     handlers: list[urllib.request.BaseHandler] = [_SafeRedirectHandler()]
+    if PROXY:
+        handlers.append(urllib.request.ProxyHandler({"http": PROXY, "https": PROXY}))
     ctx = _make_ssl_context()
     if ctx is not None:
         handlers.append(urllib.request.HTTPSHandler(context=ctx))
@@ -507,7 +511,10 @@ def _ddg_fetch(query: str, max_results: int, news: bool, timelimit: str | None) 
         try:
             with _upstream_sem:
                 try:
-                    client = DDGS(timeout=10)
+                    kwargs: dict = {"timeout": 10}
+                    if PROXY:
+                        kwargs["proxy"] = PROXY
+                    client = DDGS(**kwargs)
                 except TypeError:
                     client = DDGS()
                 call = client.news if news else client.text
@@ -843,17 +850,22 @@ def _setup_stdio() -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    global FAKE_ANSWER
+    global FAKE_ANSWER, PROXY, _opener
     parser = argparse.ArgumentParser(description="Yeivily: local Tavily-style search server")
     parser.add_argument("-V", "--version", action="version", version=f"yeivily {__version__}")
     parser.add_argument("--host", default=os.environ.get("YEIVILY_HOST", "127.0.0.1"))
     parser.add_argument("--port", type=int, default=_env_num("YEIVILY_PORT", 8000, int))
+    parser.add_argument("--proxy", default=os.environ.get("YEIVILY_PROXY"),
+                        help="HTTP or SOCKS5 proxy URL (e.g. http://127.0.0.1:8080, socks5://127.0.0.1:9050)")
     parser.add_argument("-q", "--quiet", action="store_true", help="do not log queries")
     parser.add_argument("--fake-answer", action="store_true",
                         help="fill 'answer' with concatenated snippets (NOT an LLM answer)")
     args = parser.parse_args(argv)
     if args.fake_answer:
         FAKE_ANSWER = True
+    if args.proxy:
+        PROXY = args.proxy
+        _opener = _build_opener()
 
     _setup_stdio()
     logging.basicConfig(level=logging.WARNING if args.quiet else logging.INFO,
