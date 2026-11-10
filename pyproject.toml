@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yeivily"
+version = "1.0.0"
+description = "Tiny, keyless, Tavily-style local search server and MCP provider backed by DuckDuckGo"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [{ name = "Yeib" }]
+keywords = ["tavily", "mcp", "duckduckgo", "search", "ollama", "goose", "local-llm"]
+dependencies = [
+    "ddgs>=8.0.0",
+]
+
+[project.scripts]
+yeivily = "yeivily:main"
+yeivily-mcp = "yeivily_mcp:main"
+
+[tool.setuptools]
+py-modules = ["yeivily", "yeivily_mcp"]
