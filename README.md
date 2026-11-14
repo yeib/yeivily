@@ -10,13 +10,13 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
   <a href="https://glama.ai/mcp/servers/yeib/yeivily"><img src="https://img.shields.io/badge/Glama-Listed-purple.svg" alt="Glama Listed"></a>
-  <a href="https://m8ven.ai/mcp/yeib/yeivily?s=readme"><img src="https://m8ven.ai/badge/mcp/yeib/yeivily?variant=verified" alt="M8ven Score"></a>
+  <a href="https://m8ven.ai/mcp/yeib-yeivily-cpxexw?s=readme"><img src="https://m8ven.ai/badge/mcp/yeib-yeivily-cpxexw?v=f717e667a662e302f4197eeba189de43" alt="M8ven Score"></a>
 </p>
 
-A tiny, keyless, Tavily-style search server and MCP provider for local LLM setups (Ollama, Goose, Aider, LangChain, ...).
+A tiny, keyless, Tavily-style search server and MCP provider for both **local LLM setups** (Ollama, Goose, Aider, Cursor) and **VPS / cloud AI pipelines** (OpenAI, Gemini, Claude, LangChain, CrewAI, automated research/news hubs) looking for a zero-cost, self-hosted Tavily drop-in replacement.
 Search comes from DuckDuckGo through [`ddgs`](https://pypi.org/project/ddgs/); everything else is Python standard library.
 
-- **`yeivily`** (`yeivily.py`): local HTTP server with `POST /search`, `POST /extract`, `POST /search/context`, `GET|POST /html`, `GET /health`.
+- **`yeivily`** (`yeivily.py`): lightweight HTTP server (runs locally or behind a VPS with `YEIVILY_API_KEY`) exposing `POST /search`, `POST /extract`, `POST /search/context`, `GET|POST /html`, `GET /health`.
 - **`yeivily-mcp`** (`yeivily_mcp.py`): MCP server over stdio with two tools, `web_search` and `fetch_page`. It talks to the HTTP daemon if it is running (sharing its TTL cache) and otherwise runs the same engine in-process.
 
 No Docker, no SearXNG, no API key, no database.
