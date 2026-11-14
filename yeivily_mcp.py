@@ -27,7 +27,7 @@ import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, wait
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 SUPPORTED_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"]
 
 DAEMON_URL = os.environ.get("YEIVILY_URL", "http://127.0.0.1:8000").rstrip("/")

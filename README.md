@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logos/yeivily-logo.svg" width="130" height="130" alt="Yeivily logo">
+  <img src="https://raw.githubusercontent.com/yeib/yeivily/main/assets/logos/yeivily-logo.svg" width="130" height="130" alt="Yeivily logo">
 </p>
 
 <h1 align="center">Yeivily</h1>

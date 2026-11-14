@@ -56,7 +56,7 @@ from concurrent.futures import ThreadPoolExecutor, wait
 from html.parser import HTMLParser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 log = logging.getLogger("yeivily")
 
 # ------------------------------------------------------------------------------
