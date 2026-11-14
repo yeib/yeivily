@@ -318,6 +318,14 @@ class McpTests(unittest.TestCase):
         self.assertEqual(replies[1]["result"]["protocolVersion"], "2025-06-18")
         self.assertEqual(replies[2]["result"], {})
         self.assertEqual({t["name"] for t in replies[3]["result"]["tools"]}, {"web_search", "fetch_page"})
+        for tool in replies[3]["result"]["tools"]:
+            ann = tool.get("annotations", {})
+            for hint in ("readOnlyHint", "destructiveHint", "idempotentHint", "openWorldHint"):
+                self.assertIsInstance(ann.get(hint), bool, f"{tool['name']} missing boolean {hint}")
+            self.assertEqual(
+                (ann["readOnlyHint"], ann["destructiveHint"], ann["idempotentHint"], ann["openWorldHint"]),
+                (True, False, True, True),
+            )
         res = replies[4]["result"]
         self.assertFalse(res["isError"])
         self.assertIn("https://example.org/a", res["content"][0]["text"])

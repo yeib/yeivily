@@ -10,6 +10,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://www.python.org/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
   <a href="https://glama.ai/mcp/servers/yeib/yeivily"><img src="https://img.shields.io/badge/Glama-Listed-purple.svg" alt="Glama Listed"></a>
+  <a href="https://m8ven.ai/mcp/yeib/yeivily?s=readme"><img src="https://m8ven.ai/badge/mcp/yeib/yeivily?variant=verified" alt="M8ven Score"></a>
 </p>
 
 A tiny, keyless, Tavily-style search server and MCP provider for local LLM setups (Ollama, Goose, Aider, LangChain, ...).

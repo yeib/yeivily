@@ -249,8 +249,13 @@ TOOLS = [
             },
             "required": ["query"],
         },
-        "annotations": {"title": "Web search", "readOnlyHint": True, "idempotentHint": True,
-                        "openWorldHint": True},
+        "annotations": {
+            "title": "Web search",
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": True,
+        },
     },
     {
         "name": "fetch_page",
@@ -265,8 +270,13 @@ TOOLS = [
             },
             "required": ["url"],
         },
-        "annotations": {"title": "Fetch page", "readOnlyHint": True, "idempotentHint": True,
-                        "openWorldHint": True},
+        "annotations": {
+            "title": "Fetch page",
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": True,
+        },
     },
 ]
 
